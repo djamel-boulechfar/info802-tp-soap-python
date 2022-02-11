@@ -1,8 +1,11 @@
 import json
+import os
 
 from spyne import Application, rpc, ServiceBase, Unicode, Integer, Iterable
 from spyne.protocol.soap import Soap11
 from spyne.server.wsgi import WsgiApplication
+
+port = int(os.environ.get('PORT', 3000))
 
 voitures = [
     {
@@ -44,5 +47,5 @@ wsgi_application = WsgiApplication(application)
 if __name__ == '__main__':
     from wsgiref.simple_server import make_server
 
-    server = make_server('127.0.0.1', 8000, wsgi_application)
+    server = make_server('0.0.0.0', port, wsgi_application)
     server.serve_forever()
