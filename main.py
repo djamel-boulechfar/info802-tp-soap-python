@@ -5,7 +5,7 @@ from spyne import Application, rpc, ServiceBase, Unicode, Integer, Iterable
 from spyne.protocol.soap import Soap11
 from spyne.server.wsgi import WsgiApplication
 
-port = int(os.environ.get('PORT', 3000))
+port = int(os.environ.get('PORT', 8000))
 
 voitures = [
     {
@@ -47,6 +47,11 @@ wsgi_application = WsgiApplication(application)
 if __name__ == '__main__':
     from wsgiref.simple_server import make_server
 
+    # Local test
+    # server = make_server('127.0.0.1', port, wsgi_application)
+
+    # Heroku
     server = make_server('0.0.0.0', port, wsgi_application)
+
     print("Server running on port : " + str(port))
     server.serve_forever()
